@@ -6,10 +6,11 @@
 // You may not alter or remove any copyright or other notice from copies of this content. 
 import ballerina/http;
 
-@display {
-    label: "SCIM Operations",
-    id: "scim/scim-operations"
-}
-service / on new http:Listener(9090) {
-    // # Create a external user.
-}
+configurable string baseUrl = ?;
+
+final http:Client httpClient = check new (baseUrl, {
+    httpVersion: http:HTTP_1_1,
+    http1Settings: {
+        keepAlive: http:KEEPALIVE_NEVER
+    }
+});
